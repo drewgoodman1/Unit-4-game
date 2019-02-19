@@ -5,7 +5,8 @@ $(document).ready(function() {
   var heroSelected = false;
   var villainSelected = false;
   var currentHero;
-  var currentVillain;;
+  var currentVillain;
+  var defeatedVillains = 0;
 
 
 
@@ -20,7 +21,7 @@ $(document).ready(function() {
   var bunceChar = {    
     healthPoints : 100, 
     attackPower : 10,
-    counterAttack : 10,
+    counterAttack : 65,
     alive :  true
   };
 
@@ -38,7 +39,6 @@ $(document).ready(function() {
     alive :  true
   };
 
-  //on click for fox
   $("#foxButton").on("click", function() {
 
     if(!heroSelected){
@@ -53,44 +53,33 @@ $(document).ready(function() {
     if(heroSelected && villainSelected){
       battle();
     }
+  });
 
-    /*if(!isPlaying){
-      $("#foxButton").text("Attack");
+  $("#mrsFoxButton").on("click", function() {
 
-      //add class
-
-      $("#foxCard").attr("id","fightingHero");
+    if(!heroSelected){
+      heroSelected = true;
       currentHero = foxChar;
-      console.log("fox click");
+
+      $("#mrsFoxButton").text("Attack");      
+      $("#mrsFoxCard").attr("id","fightingHero");
+      $("#fightingHero").clone(true).appendTo("#heroSpot");
     }
 
-    if(currentHero && currentVillain){      
+    if(heroSelected && villainSelected){
       battle();
-    }*/
+    }
   });
 
   $("#bunceButton").on("click", function() {
       if(!villainSelected){
-      villainSelected = true;
-      currentVillain = bunceChar;
+        villainSelected = true;
+        currentVillain = bunceChar;
 
-      $("#bunceButton").text("Defend");      
-      $("#bunceCard").attr("id","fightingVillain");
-      $("#fightingVillain").clone(true).appendTo("#villainSpot");
+        $("#bunceButton").text("Defend");      
+        $("#bunceCard").attr("id","fightingVillain");
+        $("#fightingVillain").clone(true).appendTo("#villainSpot");
       }
-
-
-    /*
-    if(!isPlaying && bunceChar.alive){
-      $("#bunceButton").text("Let's Go!");
-
-      $("#bunceCard").attr("id","fightingVillain");
-      currentVillain = bunceChar;
-      console.log("bunce click");      
-    }
-    if(currentHero.alive && currentVillain.alive){      
-      battle();
-    }*/
   });
 
   $("#boggisButton").on("click", function() {
@@ -102,21 +91,21 @@ $(document).ready(function() {
         $("#boggisCard").attr("id","fightingVillain");
         $("#fightingVillain").clone(true).appendTo("#villainSpot");
       }
-    
-    /*if(!isPlaying && boggisChar.alive){
-      $("#boggisButton").text("Let's Go!");
-
-      $("#boggisCard").attr("id","fightingVillain");
-      currentVillain = boggisChar;
-      console.log(currentVillain);      
-    }
-    if(currentHero && currentVillain){      
-      battle();
-    }*/
   });
 
+  $("#beanButton").on("click", function() {
+    if(!villainSelected){
+      villainSelected = true;
+      currentVillain = beanChar;
+
+      $("#beanButton").text("Defend");      
+      $("#beanCard").attr("id","fightingVillain");
+      $("#fightingVillain").clone(true).appendTo("#villainSpot");
+    }  
+});
+
   function battle(){      
-               
+            
         currentHero.healthPoints -= currentVillain.counterAttack;
         currentVillain.healthPoints -= currentHero.attackPower;
         currentHero.attackPower += currentHero.attackPower;
@@ -124,52 +113,42 @@ $(document).ready(function() {
         console.log(currentHero);
         console.log(currentVillain);
           
-      
-        /*if(currentHero.healthPoints <= 0){
-          currentHero.alive = false;
-          //isPlaying = false;
-        }*/
-
       if(currentVillain.healthPoints <= 0){
 
         currentVillain.alive = false;
         currentVillain = {};        
         villainSelected = false;
+        defeatedVillains++;
+
         console.log(currentVillain);
 
         $("#villainSpot").empty();
-        $("#fightingVillain").removeAttr("id","fightingVillain");
+        $("#fightingVillain").removeAttr("id","fightingVillain");  
 
-        
-
-
-
-        
-        /*currentVillain.alive = false;
-        isPlaying = false;
-        console.log(currentVillain.alive);
-        
-        $("#villainSpot").remove();
-        $("#fightingVillain").removeAttr("id","fightingVillain");
-        console.log("remove attr");*/
+        if(defeatedVillains >2){
+          console.log("You Win");
+        }
         
       }
-      
 
-      /*if(!isPlaying){
-        initializeBattle();*/
+      if(currentHero.healthPoints <= 0){
+
+        currentHero.alive = false;
+        currentHero = {};        
+        heroSelected = false;
+        console.log(currentHero);
+
+        $("#heroSpot").empty();
+        $("#fightingHero").removeAttr("id","fightingHero");        
       }
+  }
 
 
       
       
 }); 
 
-  /*function initializeBattle(){
-    $("#fightingHero").clone(true).appendTo("#heroSpot");
-    $("#fightingVillain").clone(true).appendTo("#villainSpot");
-    isPlaying = true;
-  } */
+  
 
 
 
