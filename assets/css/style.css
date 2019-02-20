@@ -1,14 +1,15 @@
 
 #main{
     background : #777;
-    
 }
 
 
 .jumbotron{
-    margin : 25px 50px 25px 50px; 
-    
-    
+    margin : 25px 50px 25px 50px;    
+}
+
+.card-text{
+    font-size: 12px;
 }
 
 

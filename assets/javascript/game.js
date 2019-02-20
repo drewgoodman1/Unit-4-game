@@ -18,10 +18,24 @@ $(document).ready(function() {
     alive : true
   };
 
+  var mrsFoxChar = {    
+    healthPoints : 100, 
+    attackPower : 10,
+    counterAttack : 20,
+    alive : true
+  };
+
+  var krisChar = {    
+    healthPoints : 100, 
+    attackPower : 10,
+    counterAttack : 20,
+    alive : true
+  };
+
   var bunceChar = {    
     healthPoints : 100, 
     attackPower : 10,
-    counterAttack : 65,
+    counterAttack : 10,
     alive :  true
   };
 
@@ -48,6 +62,8 @@ $(document).ready(function() {
       $("#foxButton").text("Attack");      
       $("#foxCard").attr("id","fightingHero");
       $("#fightingHero").clone(true).appendTo("#heroSpot");
+
+      $("#fightingHero p:first" ).html("please work");
     }
 
     if(heroSelected && villainSelected){
@@ -66,7 +82,7 @@ $(document).ready(function() {
       $("#fightingHero").clone(true).appendTo("#heroSpot");
     }
 
-    if(heroSelected && villainSelected){
+    if(heroSelected && villainSelected){      
       battle();
     }
   });
@@ -97,18 +113,25 @@ $(document).ready(function() {
     if(!villainSelected){
       villainSelected = true;
       currentVillain = beanChar;
-
-      $("#beanButton").text("Defend");      
+      
+      $("#beanButton").text("Enemy Selected");      
       $("#beanCard").attr("id","fightingVillain");
       $("#fightingVillain").clone(true).appendTo("#villainSpot");
+
+      
+      
     }  
 });
 
-  function battle(){      
+  function battle(){ 
+    
+      
             
         currentHero.healthPoints -= currentVillain.counterAttack;
         currentVillain.healthPoints -= currentHero.attackPower;
-        currentHero.attackPower += currentHero.attackPower;
+        currentHero.attackPower += currentHero.attackPower;      
+
+        //$("#fightingVillain p:first" ).html("Health: " + currentVillain.healthPoints);
 
         console.log(currentHero);
         console.log(currentVillain);
